@@ -94,7 +94,7 @@ hr {
     }
   }
 
-  @include mobile {
+  @include mobile(false) {
     padding: $base-gutter*3;
 
     &__title {
@@ -137,7 +137,7 @@ hr {
     text-align: center;
     border-radius: 2px;
 
-    @include max-mobile {
+    @include mobile(false) {
       width: 100%;
       display: block;
       margin: 0 0 $base-gutter/2 0;
@@ -176,13 +176,13 @@ hr {
   // --- devices (mobile-last)
 
   &__item--max-mobile {
-    @include max-mobile {
+    @include mobile(false) {
       @include active-state;
     }
   }
 
   &__item--max-tablet {
-    @include max-tablet {
+    @include tablet(false) {
       @include active-state;
     }
   }
@@ -198,13 +198,13 @@ hr {
   }
 
   &__item--min-tablet {
-    @include min-tablet {
+    @include tablet(true) {
       @include active-state;
     }
   }
 
   &__item--min-desktop {
-    @include min-desktop {
+    @include desktop(true) {
       @include active-state;
     }
   }

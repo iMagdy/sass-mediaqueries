@@ -7,6 +7,7 @@
   ],
   "description": "It is a collection of useful media queries mixins for Sass. Great extension for compass or bourbon.",
   "main": "_media-queries.scss",
+  "ignore": ["demo"],
   "keywords": [
     "sass",
     "scss",

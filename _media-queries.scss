@@ -19,9 +19,17 @@ $mq-mobile-first:  false !default;
 
 // --- screen ------------------------------------------------------------------
 
-@mixin screen($res-min, $res-max) {
-  @media screen and (min-width: $res-min) and (max-width: $res-max) {
-    @content;
+@mixin screen($res-min, $res-max, $orientation: false) {
+  @if $orientation {
+    @media screen and (min-width: $res-min) and (max-width: $res-max)
+    and (orientation:#{$orientation}) {
+      @content;
+    }
+  }
+  @else {
+    @media screen and (min-width: $res-min) and (max-width: $res-max) {
+      @content;
+    }
   }
 }
 
@@ -55,66 +63,40 @@ $mq-mobile-first:  false !default;
   }
 }
 
-// --- core devices ------------------------------------------------------------
-
-@mixin max-tablet {
-  @include max-screen($mq-tablet) {
-    @content;
-  }
-}
-
-@mixin max-mobile {
-  @include max-screen($mq-mobile) {
-    @content;
-  }
-}
-
-@mixin min-desktop {
-  @include min-screen($mq-tablet) {
-    @content;
-  }
-}
-
-@mixin min-tablet {
-  @include min-screen($mq-mobile) {
-    @content;
-  }
-}
-
 // --- core devices: simple version --------------------------------------------
 
-@mixin desktop {
-  @if $mq-mobile-first {
-    @include min-desktop {
+@mixin desktop($mf: $mq-mobile-first) {
+  @if $mf {
+    @include min-screen($mq-tablet) {
       @content;
     }
   }
   @else {
-    // display warning!
+    @warn 'Using desktop() mixins with mobile-last approach is pointless. ' +
+          'You probably overrode $mq-mobile-first. Please, cleanup your code'
   }
 }
 
-@mixin tablet {
-  @if $mq-mobile-first {
-    @include min-tablet {
+@mixin tablet($mf: $mq-mobile-first) {
+  @if $mf {
+    @include min-screen($mq-mobile) {
       @content;
     }
   }
   @else {
-    @include max-tablet {
+    @include max-screen($mq-tablet) {
       @content;
     }
   }
 }
 
-@mixin mobile {
-  @if $mq-mobile-first {
-    @include min-mobile {
-      @content;
-    }
+@mixin mobile($mf: $mq-mobile-first) {
+  @if $mf {
+    @warn 'Using mobile() mixins with mobile-first approach is pointless. ' +
+          'You probably overrode $mq-mobile-first. Please, cleanup your code'
   }
   @else {
-    @include max-mobile {
+    @include max-screen($mq-mobile) {
       @content;
     }
   }
